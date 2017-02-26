@@ -1,0 +1,38 @@
+---
+- name: Install ZSH
+  apt: name=zsh state=latest
+  become: true
+
+- name: Install oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+    update: yes
+    accept_hostkey: yes
+
+- name: Link .zshrc
+  file: src={{ role_path }}/conf/.zshrc dest=~/.zshrc state=link
+  tags: lol
+
+- name: Clone zsh template
+  git:
+    repo: https://github.com/bhilburn/powerlevel9k.git
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel9k
+    update: yes
+    accept_hostkey: yes
+
+- name: Download PowerLine fonts
+  git:
+    repo: https://github.com/powerline/fonts.git
+    dest: ~/.oh-my-zsh/custom/fonts/powerline
+    update: yes
+    accept_hostkey: yes
+
+- name: Install PowerLine fonts
+  shell: cd ~/.oh-my-zsh/custom/fonts/powerline && ./install.sh
+
+- name: Set ZSH as users shell.
+  become: yes
+  user:
+    name: "{{ user }}"
+    shell: /usr/bin/zsh

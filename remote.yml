@@ -1,0 +1,9 @@
+---
+- hosts: remote
+  vars:
+    user: freezy
+    user_home: /home/{{ user }}
+  roles:
+    - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: apps, tags: ['apps'] }
+    - { role: ohmyzsh, tags: ['ohmyzsh'] }

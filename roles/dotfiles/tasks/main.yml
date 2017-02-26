@@ -1,0 +1,13 @@
+---
+- name: Create ~/.bin
+  file: dest=~/.bin state=directory
+
+- name: Link dotfiles
+  file: src={{ item }} dest=~/.{{ item | basename }} state=link
+  with_fileglob:
+    - "{{ role_path }}/conf/*"
+
+- name: Link executables
+  file: src={{ item }} dest=~/.bin/{{ item | basename }} state=link
+  with_fileglob:
+    - "{{ role_path }}/bin/*"

@@ -1,0 +1,5 @@
+---
+apps:
+  - git
+  - htop
+  - mc

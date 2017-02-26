@@ -1,0 +1,11 @@
+---
+- name: Install Guake
+  apt: name=guake state=latest
+  notify: Restore Guake config
+  become: true
+
+- name: Backup Guake config
+  command: >
+    gconftool-2 --dump /apps/guake > ./conf/guake/apps-guake.xml &&
+    gconftool-2 --dump /schemas/apps/guake > ./conf/guake/schemas-apps-guake.xml
+  tags: update

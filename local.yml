@@ -1,0 +1,11 @@
+---
+- hosts: local
+  vars:
+    user: freezy
+    user_home: /home/{{ user }}
+  roles:
+    - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: apps, tags: ['apps'] }
+    - { role: guake, tags: ['guake'] }
+    - { role: ohmyzsh, tags: ['ohmyzsh'] }
+    #- { role: docker, tags: ['docker'] }

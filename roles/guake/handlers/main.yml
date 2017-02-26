@@ -1,0 +1,5 @@
+---
+- name: Restore Guake config
+  command: gconftool-2 --load {{ item }}
+  with_fileglob:
+    - ./conf/guake/*

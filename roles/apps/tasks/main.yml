@@ -1,0 +1,10 @@
+---
+- include: ubuntu.yml
+  name: Ubuntu apps
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- include: freebsd.yml
+  name: FreeBSD apps
+  become: true
+  when: ansible_distribution == 'FreeBSD'
