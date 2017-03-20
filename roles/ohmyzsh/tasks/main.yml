@@ -10,9 +10,23 @@
     update: yes
     accept_hostkey: yes
 
+- stat:
+    path: ~/.zshrc
+  register: zsh_config
+
+- name: Backup .zshrc
+  copy:
+    src: ~/.zshrc
+    dest: ~/.zshrc_backup
+  when: zsh_config.stat.islnk is defined and zsh_config.stat.islnk == False
+
 - name: Link .zshrc
-  file: src={{ role_path }}/conf/.zshrc dest=~/.zshrc state=link
-  tags: lol
+  file: src={{ role_path }}/conf/.zshrc dest=~/.zshrc state=link force=true
+  when: remote is not defined
+
+- name: Copy .zshrc
+  copy: src={{ role_path }}/conf/.zshrc dest=~/.zshrc backup=true force=true
+  when: remote is defined and remote
 
 - name: Clone zsh template
   git:

@@ -1,9 +1,16 @@
 ---
 - hosts: remote
+  gather_facts: false
   vars:
     user: freezy
     user_home: /home/{{ user }}
+    remote: true
+  pre_tasks:
+    - name: Install ansible requirments
+      become: true
+      script: bin/partials/apps-install.sh
+    - setup: # aka gather_facts
   roles:
-    - { role: dotfiles, tags: ['dotfiles'] }
+    #- { role: dotfiles, tags: ['dotfiles'] }
     - { role: apps, tags: ['apps'] }
     - { role: ohmyzsh, tags: ['ohmyzsh'] }

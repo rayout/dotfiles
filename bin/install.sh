@@ -3,6 +3,7 @@
 cd "${BASH_SOURCE%/*}/.."
 
 ./bin/partials/apps-install.sh
+./bin/partials/copy_ssh.sh
 
 join() {
     IFS="$1"
@@ -14,4 +15,4 @@ if [[ $# -gt 0 ]]; then
     tags="--tags=$(join , $@)"
 fi
 
-ansible-playbook --ask-become-pass -i hosts.ini --skip-tags=update $tags local.yml remote.yml
+ansible-playbook --ask-become-pass -i hosts.ini --skip-tags=update  $tags remote.yml

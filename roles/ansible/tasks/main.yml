@@ -1,0 +1,11 @@
+---
+
+#pre_tasks:
+#  - name: Install python for Ansible
+#    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+#    register: output
+#    changed_when: output.stdout != ""
+
+- name: Install ansible requirments
+  become: true
+  script: bin/partials/apps-install.sh

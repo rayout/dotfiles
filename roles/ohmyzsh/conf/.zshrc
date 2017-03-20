@@ -38,7 +38,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="yyyy-mm-dd"
 
 
-plugins=(git capistrano command-not-found composer dirhistory docker docker-compose git-flow node npm per-directory-history sudo laravel laravel4 laravel5)
+plugins=(git capistrano command-not-found composer dirhistory docker docker-compose git-flow node npm per-directory-history sudo laravel laravel4 laravel5 zsh-autosuggestions zsh-syntax-highlighting)
 
 # User configuration
 
