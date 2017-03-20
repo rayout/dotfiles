@@ -15,4 +15,4 @@ if [[ $# -gt 0 ]]; then
     tags="--tags=$(join , $@)"
 fi
 
-ansible-playbook --ask-become-pass -i hosts.ini --skip-tags=update  $tags remote.yml
+ansible-playbook --ask-become-pass -i hosts.ini --skip-tags=update  $tags local.yml remote.yml
