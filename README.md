@@ -6,7 +6,8 @@ Ansible configuration for apps and dotfiles with usefull scripts
 ```bash
 git clone git@github.com:rayout/dotfiles.git
 cd dotfiles
-./bin/partials/apps-install.sh```
+./bin/partials/apps-install.sh
+```
 
 ## Instruction
 Currently we have to main host groups: *local* and *remote*
