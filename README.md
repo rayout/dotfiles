@@ -1,33 +1,35 @@
 # dotfiles/ansible-project
 Ansible configuration for apps and dotfiles with usefull scripts
 
-# Commands
+## Install ansible
 
-## how install ansible to your ansible-master
+```bash
+git clone git@github.com:rayout/dotfiles.git
+cd dotfiles
+./bin/partials/apps-install.sh```
 
-    git clone git@github.com:rayout/dotfiles.git
-    cd dotfiles
-    ./bin/partials/apps-install.sh
+## Instruction
+Currently we have to main host groups: *local* and *remote*
+* local - this is your computer
+* remote - this is remote hosts which you can configure with ansible
 
-## Working with ansible hosts
-### to install to webservers and domainservers tags: docker, quake, editors
-    
-    ./bin/install.sh webservers,domanservers docker quake editors
+## Examples:
+* install guake to your pc
+```bash
+./bin/install.sh local guake
+```
 
-### to install to all hostgroups apache2
+* install guake to your local host and all remote hosts
+```bash
+./bin/install.sh remote,local guake
+```
 
-    # all hostgroups selected by default 
-    ./bin/install.sh apache2
-
-### to install default to webservers group
-
-    ./bin/install.sh webservers
-
-### install 
-for example you
-
-# Service command
-
-## update/push repo from symlinks:
-    
-    ./bin/update.sh
+## Testing
+we have some test for bash scripts, for testing we use **Bats**
+### installing
+to install bats go to [Bats on github.com](https://github.com/sstephenson/bats)
+### Run tests
+use
+```bash
+./test.sh
+```
