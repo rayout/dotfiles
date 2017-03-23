@@ -1,0 +1,51 @@
+#!/usr/bin/env bats
+
+source ./bin/src/parse_args.sh
+
+@test "check join function" {
+    result=$(join , a b c)
+    [ "$result" == "a,b,c" ]
+}
+
+@test "check get_existing_yml_for_all_groups" {
+    all_groups=$( get_existing_yml_for_all_groups ./tests/files/parse_args_hosts.ini )
+    [ "$all_groups" == "local.yml remote.yml" ]
+}
+
+@test "check define_groups one group" {
+    result=$(define_groups remote local.yml remote.yml)
+    [ "$result" == "remote.yml" ]
+}
+
+@test "check define_groups check many groups" {
+    result=$(define_groups remote,local local.yml remote.yml)
+    [ "$result" == "remote.yml local.yml" ]
+}
+
+@test "get_tags_and_groups return default groups with tags" {
+    get_tags_and_groups ./tests/files/parse_args_hosts.ini docker guake
+    echo $groups $tags
+    [ "$groups" == "local.yml remote.yml" ]
+    [ "$tags" == "--tags=docker,guake" ]
+}
+
+@test "get_tags_and_groups return remote group without tags" {
+    get_tags_and_groups ./tests/files/parse_args_hosts.ini remote
+    echo $groups $tags
+    [ "$groups" == "remote.yml" ]
+    [ "$tags" == "" ]
+}
+
+@test "get_tags_and_groups return local group with guake" {
+    get_tags_and_groups ./tests/files/parse_args_hosts.ini local guake
+    echo $groups $tags
+    [ "$groups" == "local.yml" ]
+    [ "$tags" == "--tags=guake" ]
+}
+
+@test "get_tags_and_groups default execute" {
+    get_tags_and_groups ./tests/files/parse_args_hosts.ini
+    echo $groups $tags
+    [ "$groups" == "local.yml remote.yml" ]
+    [ "$tags" == "" ]
+}

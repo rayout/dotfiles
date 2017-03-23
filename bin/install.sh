@@ -7,4 +7,6 @@ cd "${BASH_SOURCE%/*}/.."
 
 source ./bin/src/parse_args.sh
 
+get_tags_and_groups ./hosts.ini $@
+
 ansible-playbook --ask-become-pass -i hosts.ini --skip-tags=update $tags $groups
