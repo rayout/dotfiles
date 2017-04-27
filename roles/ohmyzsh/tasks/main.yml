@@ -32,14 +32,14 @@
   git:
     repo: https://github.com/bhilburn/powerlevel9k.git
     dest: ~/.oh-my-zsh/custom/themes/powerlevel9k
-    update: yes
+    update: no
     accept_hostkey: yes
 
 - name: Download PowerLine fonts
   git:
     repo: https://github.com/powerline/fonts.git
     dest: ~/.oh-my-zsh/custom/fonts/powerline
-    update: yes
+    update: no
     accept_hostkey: yes
 
 - name: Install PowerLine fonts

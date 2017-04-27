@@ -14,3 +14,4 @@
     #- { role: dotfiles, tags: ['dotfiles'] }
     - { role: apps, tags: ['apps'] }
     - { role: ohmyzsh, tags: ['ohmyzsh'] }
+    - { role: docker, tags: ['docker'] }

@@ -1,0 +1,4 @@
+---
+docker_package_name: docker-engine
+docker_version: 1.12.6-0~ubuntu-{{ansible_distribution_release}}
+docker_compose_version: 1.11.2

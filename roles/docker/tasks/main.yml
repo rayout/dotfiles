@@ -1,1 +1,59 @@
 ---
+- name: install base for docker
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - curl
+    - 'linux-image-extra-{{ ansible_kernel }}'
+    - linux-image-extra-virtual
+    - apt-transport-https
+    - software-properties-common
+    - ca-certificates
+  become: true
+
+- name: add docker key
+  apt_key:
+    url: https://apt.dockerproject.org/gpg
+    id: 2C52609D
+    state: present
+  become: true
+
+- name: add docker repo
+  apt_repository:
+    repo: 'deb https://apt.dockerproject.org/repo/ ubuntu-{{ ansible_distribution_release }} main'
+    state: present
+  become: true
+
+- name: install docker
+  apt: 'name={{docker_package_name}}={{docker_version}} update_cache=yes cache_valid_time=3600 force=yes'
+  become: yes
+
+- name: Create a docker group
+  group:
+    name: docker
+    state: present
+  become: yes
+
+- name: Start docker
+  service: name=docker state=started
+  become: yes
+
+- name: add {{ ansible_user_id }} to group docker
+  user:
+    name: '{{ ansible_user_id }}'
+    groups: docker
+    state: present
+    append: yes
+  become: true
+
+- name: Install docker-compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    force: yes
+  become: true
+
+- name: Set permissions on docker-compose binary
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: 0755
+  become: true

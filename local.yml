@@ -8,4 +8,4 @@
     - { role: apps, tags: ['apps'] }
     - { role: guake, tags: ['guake'] }
     - { role: ohmyzsh, tags: ['ohmyzsh'] }
-    #- { role: docker, tags: ['docker'] }
+    - { role: docker, tags: ['docker'] }
