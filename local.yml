@@ -1,7 +1,7 @@
 ---
 - hosts: local
   vars:
-    user: freezy
+    user: "{{ lookup('env', 'USER') }}"
     user_home: /home/{{ user }}
   roles:
     #- { role: dotfiles, tags: ['dotfiles'] }

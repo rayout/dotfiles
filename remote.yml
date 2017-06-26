@@ -2,7 +2,7 @@
 - hosts: remote
   gather_facts: false
   vars:
-    user: freezy
+    user: "{{ lookup('env', 'USER') }}"
     user_home: /home/{{ user }}
     remote: true
   pre_tasks:
