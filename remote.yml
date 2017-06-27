@@ -1,8 +1,8 @@
 ---
 - hosts: remote
-  gather_facts: false
+  gather_facts: true
   vars:
-    user: "{{ lookup('env', 'USER') }}"
+    user: "{{ ansible_env.USER }}"
     user_home: /home/{{ user }}
     remote: true
   pre_tasks:
