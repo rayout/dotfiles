@@ -1,8 +1,16 @@
 ---
-- name: Install ZSH
+
+# Install zsh #
+- name: Install ZSH Ubuntu
   apt: name=zsh state=latest
   become: true
+  when: ansible_os_family == "Debian"
 
+- name: Install ZSH Mac
+  homebrew: name=zsh state=latest
+  when: ansible_os_family == "Darwin"
+
+# Install oh-my-zsh
 - name: Install oh-my-zsh
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
@@ -10,6 +18,7 @@
     update: yes
     accept_hostkey: yes
 
+# .zshrc #
 - stat:
     path: ~/.zshrc
   register: zsh_config
@@ -28,6 +37,7 @@
   copy: src={{ role_path }}/conf/.zshrc dest=~/.zshrc backup=true force=true
   when: remote is defined and remote
 
+# template #
 - name: Clone zsh template
   git:
     repo: https://github.com/bhilburn/powerlevel9k.git
@@ -45,6 +55,7 @@
 - name: Install PowerLine fonts
   shell: cd ~/.oh-my-zsh/custom/fonts/powerline && ./install.sh
 
+# zsh as default shell #
 - name: Set ZSH as users shell.
   become: yes
   user:

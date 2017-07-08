@@ -1,0 +1,22 @@
+---
+- name: Download iTerm
+  get_url:
+    url: https://iterm2.com/downloads/beta/iTerm2-3_1_beta_5.zip
+    dest: "{{ user_home }}/Downloads/iTerm2-3_1_beta_5.zip"
+
+- name: Dir for extract Iterm
+  file: path="{{ user_home }}/Downloads/iTerm2-3_1_beta_5" state=directory
+
+- name: Extract iTerm zip archive
+  unarchive:
+    src: "{{ user_home }}/Downloads/iTerm2-3_1_beta_5.zip"
+    dest: "{{ user_home }}/Downloads/iTerm2-3_1_beta_5"
+
+- name: Copy iTerm.app to Applications directory
+  command: cp -R "{{ user_home }}/Downloads/iTerm2-3_1_beta_5/iTerm.app" /Applications
+  args:
+    creates: /Applications/iTerm.app
+  become: yes
+
+- name: Set iTerm config link
+  file: src={{ role_path }}/conf/com.googlecode.iterm2.plist dest={{ user_home }}/Library/Preferences/com.googlecode.iterm2.plist state=link force=true

@@ -1,4 +1,4 @@
 ---
-- name: Install apps
+- name: Install apps Ubuntu
   apt: name={{ item }} state=latest
   with_items: "{{ apps }}"

@@ -1,0 +1,4 @@
+---
+- name: Install apps Mac
+  homebrew: name={{ item }} state=latest
+  with_items: "{{ apps }}"

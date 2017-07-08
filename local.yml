@@ -2,10 +2,11 @@
 - hosts: local
   vars:
     user: "{{ ansible_env.USER }}"
-    user_home: /home/{{ user }}
+    user_home: "{{ ansible_env.HOME }}"
   roles:
-    #- { role: dotfiles, tags: ['dotfiles'] }
+    #- { role: dotfiles, tags: ['dotfiles'] } когда появятся отдельные dotfiles нужно будет переписать задачу
     - { role: apps, tags: ['apps'] }
-    - { role: guake, tags: ['guake'] }
     - { role: ohmyzsh, tags: ['ohmyzsh'] }
-    - { role: docker, tags: ['docker'] }
+    - { role: guake, tags: ['guake'],  when: "ansible_os_family == 'Debian'"}
+    - { role: iterm2, tags: ['iterm2'],  when: "ansible_os_family == 'Darwin'"}
+    - { role: docker, tags: ['docker'], when: "ansible_os_family == 'Debian'" }
